@@ -14,11 +14,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   plugins: ["react", "react-native"],
-  extends: [
-    "plugin:react-native/all",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-  ],
+  extends: ["plugin:react-native/all", "plugin:@typescript-eslint/recommended"],
   overrides: [
     {
       files: ["*.tsx"],

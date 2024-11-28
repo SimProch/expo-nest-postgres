@@ -1,5 +1,3 @@
-import { StyleSheet } from "react-native";
+const Index = () => <></>;
 
-export default function SignInScreen() {
-  return <></>;
-}
+export default Index;

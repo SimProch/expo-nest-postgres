@@ -4,8 +4,9 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedButton } from "@/components/ThemedButton";
 import { useSession } from "@/ctx/session/SessionProvider";
-import { ThemedTextInput } from "@/components/ui/inputs/text/TextInput";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
+import { EmailInput } from "@/components/ui/access/EmailInput";
+import { PasswordInput } from "@/components/ui/access/PasswordInput";
 
 type FormData = {
   email: string;
@@ -21,39 +22,34 @@ export default function SignInScreen() {
       <Stack.Screen
         options={{
           title: "Sign In",
-          headerBackVisible: false,
-          headerBackButtonMenuEnabled: false,
         }}
       />
       <ThemedView style={styles.container}>
         <ThemedView style={styles.signIn}>
-          <ThemedTextInput
-            label="Email"
-            name="email"
-            control={form.control}
-            rules={{ required: "Fill in email" }}
-          ></ThemedTextInput>
-          <ThemedTextInput
-            label="Password"
-            name="password"
-            control={form.control}
-            rules={{ required: "Fill in password" }}
-            secureTextEntry={true}
-          ></ThemedTextInput>
-          <ThemedButton
-            title="Sign in"
-            onPress={async () => {
-              form.handleSubmit(async (data: FormData) => {
-                await session.signIn(data.email, data.password);
-              })();
-            }}
-          />
+          <FormProvider {...form}>
+            <EmailInput />
+            <PasswordInput />
+            <ThemedButton
+              title="Sign in"
+              onPress={async () => {
+                form.handleSubmit(async (data: FormData) => {
+                  console.log(data);
+                  await session.signIn({
+                    email: data.email,
+                    password: data.password,
+                  });
+                })();
+              }}
+            />
+          </FormProvider>
         </ThemedView>
         <ThemedView style={styles.footnote}>
           <ThemedText>
             Don't have an account yet?{" "}
             <ThemedText type="link">
-              <Link href="/sign-up">Sign up!</Link>
+              <Link href="/sign-up" push={false} replace>
+                Sign up!
+              </Link>
             </ThemedText>
           </ThemedText>
         </ThemedView>

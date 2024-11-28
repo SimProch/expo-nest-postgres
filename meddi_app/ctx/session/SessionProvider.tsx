@@ -1,14 +1,19 @@
 import { useContext, createContext, type PropsWithChildren } from "react";
 import { useStorageState } from "./useStorageState";
+import { Session } from "./auth.types";
+import { useSignIn } from "@/hooks/access/useSignIn";
+import { useSignUp } from "@/hooks/access/useSignUp";
 
-const AuthContext = createContext<{
-  signIn: (username: string, password: string) => Promise<void>;
-  signOut: () => Promise<void>;
-  session?: string | null;
-  isLoading: boolean;
-}>({
-  signIn: (username: string, password: string) => Promise.resolve(),
-  signOut: () => Promise.resolve(),
+const AuthContext = createContext<Session>({
+  signIn: () => {
+    throw "Not Implemented";
+  },
+  signUp: () => {
+    throw "Not Implemented";
+  },
+  signOut: () => {
+    throw "Not Implemented";
+  },
   session: null,
   isLoading: false,
 });
@@ -27,12 +32,26 @@ export function useSession() {
 
 export function SessionProvider({ children }: PropsWithChildren) {
   const [[isLoading, session], setSession] = useStorageState("session");
+  const signIn = useSignIn();
+  const signUp = useSignUp();
 
   return (
     <AuthContext.Provider
       value={{
-        signIn: async () => {
-          setSession("xxx");
+        signIn: async (params) => {
+          console.log("hit");
+          signIn.mutate(params, {
+            onSuccess: (data) => {
+              console.log(data);
+            },
+          });
+        },
+        signUp: async (params) => {
+          signUp.mutate(params, {
+            onSuccess: (data) => {
+              console.log(data);
+            },
+          });
         },
         signOut: async () => {
           setSession(null);
