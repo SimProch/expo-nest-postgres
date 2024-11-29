@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsPhoneNumber, IsStrongPassword } from 'class-validator';
+import { IsEmail, IsPhoneNumber, IsPostalCode, IsString, IsStrongPassword } from 'class-validator';
 
 export class RegisterRequestDto {
   @IsEmail()
@@ -9,17 +9,37 @@ export class RegisterRequestDto {
   })
   public email: string;
 
-  @IsStrongPassword()
+  @IsStrongPassword({
+    minLength: 8,
+    minLowercase: 1,
+    minNumbers: 1,
+    minUppercase: 1,
+    minSymbols: 0,
+  })
   @ApiProperty({
     name: 'password',
     example: 'hunter2',
   })
   public password: string;
 
-  @IsPhoneNumber()
   @ApiProperty({
     name: 'phoneNumber',
     example: '+420123456789',
   })
+  @IsPhoneNumber()
   public phoneNumber: string;
+
+  @ApiProperty({
+    name: 'postalCode',
+    example: '60200',
+  })
+  @IsPostalCode('any')
+  public postalCode: string;
+
+  @ApiProperty({
+    name: 'city',
+    example: '60200',
+  })
+  @IsString()
+  public city: string;
 }

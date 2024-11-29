@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 export class AccessService {
   constructor(
     private readonly _userDatabaseService: IUserDatabaseService,
-    private readonly _jwtService: JwtService,
+    private readonly _jwtService: JwtService
   ) {}
 
   public async registerNewUser(props: UserRegistration): Promise<Token> {
@@ -35,7 +35,7 @@ export class AccessService {
 
     const doPasswordsMatch = await this._comparePasswords(
       existingUser.password_hash,
-      props.password,
+      props.password
     );
 
     if (!doPasswordsMatch) {
@@ -50,18 +50,12 @@ export class AccessService {
     return hash;
   }
 
-  private async _comparePasswords(
-    password: string,
-    hashedPassword: string,
-  ): Promise<boolean> {
+  private async _comparePasswords(hashedPassword: string, password: string): Promise<boolean> {
     const result = await crypto.verify(hashedPassword, password);
     return result;
   }
 
-  private async _generateAccessToken(
-    id: string,
-    email: string,
-  ): Promise<Token> {
+  private async _generateAccessToken(id: string, email: string): Promise<Token> {
     const payload = {
       sub: id,
       username: email,

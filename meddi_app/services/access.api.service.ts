@@ -5,18 +5,16 @@ export class AccessApiService extends AbstractApiService {
   public async signIn(
     params: SignInPayload
   ): Promise<{ access_token: string }> {
-    return await this.post<{ access_token: string }>("login", {
-      params,
-    });
+    return await this.post<{ access_token: string }>("access/login", params);
   }
 
   public async signUp(
     params: SignUpPayload
   ): Promise<{ access_token: string }> {
-    console.log("hit");
-    const res = await this.post<{ access_token: string }>("register", {
-      params,
-    });
+    const res = await this.post<{ access_token: string }>(
+      "access/register",
+      params
+    );
 
     return res;
   }

@@ -17,9 +17,7 @@ export class AccessController {
     description: 'There was an issue when creating the user',
   })
   @HttpCode(201)
-  public async registerNewUser(
-    @Body() dto: RegisterRequestDto,
-  ): Promise<TokenResponseDto> {
+  public async registerNewUser(@Body() dto: RegisterRequestDto): Promise<TokenResponseDto> {
     const token = await this._accessService.registerNewUser({
       email: dto.email,
       password: dto.password,

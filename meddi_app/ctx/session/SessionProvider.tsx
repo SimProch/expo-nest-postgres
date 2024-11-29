@@ -39,7 +39,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
     <AuthContext.Provider
       value={{
         signIn: async (params) => {
-          console.log("hit");
           signIn.mutate(params, {
             onSuccess: (data) => {
               console.log(data);

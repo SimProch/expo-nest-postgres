@@ -13,7 +13,6 @@ export abstract class AbstractApiService {
     options: AxiosRequestConfig<T>
   ): Promise<T> {
     const resourcePath = `${this._url}${path}`;
-    console.log(this._url);
 
     try {
       const request = await axios.get<T>(resourcePath, options);
@@ -29,7 +28,6 @@ export abstract class AbstractApiService {
     data: Record<string, unknown>,
     options: AxiosRequestConfig<T> = {}
   ): Promise<T> {
-    console.log(this._url);
     const resourcePath = `${this._url}${path}`;
 
     try {

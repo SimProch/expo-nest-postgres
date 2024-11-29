@@ -15,7 +15,7 @@ import { useSession } from "@/ctx/session/SessionProvider";
 type FormData = {
   email: string;
   password: string;
-  phone: string;
+  phoneNumber: string;
   postalCode: string;
   city: string;
 };
@@ -52,8 +52,8 @@ export default function SignInScreen() {
                   await session.signUp({
                     email: data.email,
                     password: data.password,
-                    phone: data.phone,
-                    postalCode: data.postalCode,
+                    phoneNumber: data.phoneNumber.split(" ").join(""),
+                    postalCode: data.postalCode.split(" ").join(""),
                     city: data.city,
                   });
                 })();

@@ -9,7 +9,13 @@ export class LoginRequestDto {
   @IsEmail()
   public email: string;
 
-  @IsStrongPassword()
+  @IsStrongPassword({
+    minLength: 8,
+    minLowercase: 1,
+    minNumbers: 1,
+    minUppercase: 1,
+    minSymbols: 0,
+  })
   @ApiProperty({
     name: 'password',
     example: 'hunter2',
