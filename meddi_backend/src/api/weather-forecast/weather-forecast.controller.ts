@@ -3,6 +3,7 @@ import { AuthGuard } from 'src/modules/access/guards/auth.guard';
 import { IWeatherForecastProvider } from 'src/modules/weather-forecast/interfaces/IWeatherForecastProvider';
 import { GetWeatherForecastResponseDto } from './dto/response/get-weather-forecast.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { kelvinToCelsius } from 'src/utils/kelvin-to-celsius';
 
 @ApiTags('Weather foreast')
 @Controller('weather')
@@ -21,11 +22,11 @@ export class WeatherForecastController {
   ): Promise<GetWeatherForecastResponseDto[]> {
     const result = await this._weatherForecastProvider.get(userId);
 
-    return result.map((i) => {
+    return result.map((tempInfo) => {
       return {
-        city: i.city,
-        postalCode: i.postalCode,
-        temperature: Math.round(i.temperature - 273.15),
+        city: tempInfo.city,
+        postalCode: tempInfo.postalCode,
+        temperature: Math.round(kelvinToCelsius(tempInfo.temperature)),
       };
     });
   }
