@@ -1,6 +1,6 @@
 import { useUserId } from "@/hooks/utils/useUserId";
-import { useGetUserWeather } from "./hooks/useGetUserWeather";
-import { RenderUnsettledUI } from "../utils/RenderUnsettledUI";
+import { useGetUserWeather } from "../hooks/useGetUserWeather";
+import { RenderUnsettledUI } from "../../utils/RenderUnsettledUI";
 import { ThemedView } from "@/components/ThemedView";
 import { StyleSheet } from "react-native";
 import { ThemedText } from "@/components/ThemedText";

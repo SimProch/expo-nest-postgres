@@ -24,6 +24,14 @@ export default function TabLayout() {
           title: "Update User Info",
         }}
       />
+      <Stack.Screen
+        name="city-detail"
+        options={{
+          presentation: "modal",
+          headerShown: true,
+          title: "City detail",
+        }}
+      />
     </Stack>
   );
 }

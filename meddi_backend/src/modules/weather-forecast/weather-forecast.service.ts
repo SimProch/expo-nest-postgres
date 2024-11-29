@@ -5,6 +5,7 @@ import { ITemperatureDatabaseProvider } from 'src/data-access/temperature/interf
 import { IUserDatabaseService } from 'src/data-access/users/interfaces/IUserDatabaseService';
 import { OpenWeatherMapApiResponse } from './interfaces/openweathermap.types';
 import { DBTemperature } from 'src/data-access/temperature/temperature.service.types';
+import { WeatherForecast } from './weather-forecast.service.types';
 
 @Injectable({ scope: Scope.REQUEST })
 export class WeatherForecastService implements IWeatherForecastProvider {
@@ -22,10 +23,10 @@ export class WeatherForecastService implements IWeatherForecastProvider {
     );
   }
 
-  public async get(userId: string): Promise<any> {
+  public async get(userId: string): Promise<WeatherForecast[]> {
     const user = await this._userDatabaseService.findOneById(userId);
 
-    const promises = user.locations.map(async (location) => {
+    const promises: Promise<WeatherForecast>[] = user.locations.map(async (location) => {
       const existing = await this._getExistingForecast(location.city);
       if (existing) {
         return existing;
@@ -38,8 +39,10 @@ export class WeatherForecastService implements IWeatherForecastProvider {
         return null;
       }
 
-      await this._saveForecast(forecast, location.city, location.postal_code);
-      return forecast;
+      const data = this._getForecastData(forecast, location.city, location.postal_code);
+
+      const id = await this._saveForecast(data);
+      return <WeatherForecast>{ ...data, id };
     });
 
     const result = await Promise.allSettled(promises);
@@ -53,7 +56,7 @@ export class WeatherForecastService implements IWeatherForecastProvider {
     });
   }
 
-  private async _fetchForecast(city: string): Promise<OpenWeatherMapApiResponse> {
+  private async _fetchForecast(city: string): Promise<OpenWeatherMapApiResponse | null> {
     try {
       const address = this._forecastUrl + `?q=${city}&appid=${this._forecastApiKey}`;
       const request = await fetch(address);
@@ -62,6 +65,7 @@ export class WeatherForecastService implements IWeatherForecastProvider {
     } catch {
       // eslint-disable-next-line no-console
       console.error('Error when trying to fetch data from forecast provider');
+      return null;
     }
   }
 
@@ -69,18 +73,29 @@ export class WeatherForecastService implements IWeatherForecastProvider {
     return await this._temperatureDatabaseService.findOne(city);
   }
 
-  private async _saveForecast(
-    temperature: OpenWeatherMapApiResponse,
+  private async _saveForecast(forecast: Omit<WeatherForecast, 'id'>): Promise<string> {
+    return await this._temperatureDatabaseService.createOne({
+      city: forecast.city,
+      postcode: forecast.postcode,
+      temperature: forecast.temperature,
+      description: forecast.description,
+      latitute: forecast.latitute,
+      longtitude: forecast.longtitude,
+    });
+  }
+
+  public _getForecastData(
+    forecast: OpenWeatherMapApiResponse,
     city: string,
     postalCode: string
-  ): Promise<string> {
-    return await this._temperatureDatabaseService.createOne({
+  ): Omit<WeatherForecast, 'id'> {
+    return {
       city: city,
       postcode: postalCode,
-      temperature: temperature.main.temp,
-      description: temperature.weather[0].description,
-      latitute: temperature.coord.lat,
-      longtitude: temperature.coord.lon,
-    });
+      temperature: forecast.main.temp,
+      description: forecast.weather[0].description,
+      latitute: forecast.coord.lat,
+      longtitude: forecast.coord.lon,
+    };
   }
 }

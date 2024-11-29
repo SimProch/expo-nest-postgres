@@ -1,9 +1,5 @@
-export type WeatherDto = {
-  city: string;
-  postalCode: string;
-  temperature: number;
-};
+import { WeatherForecast } from '../weather-forecast.service.types';
 
 export abstract class IWeatherForecastProvider {
-  public abstract get(city: string): Promise<WeatherDto[]>;
+  public abstract get(city: string): Promise<WeatherForecast[]>;
 }

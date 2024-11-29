@@ -1,5 +1,5 @@
 import { ThemedView } from "@/components/ThemedView";
-import { WeatherProvider } from "@/components/ui/components/weather/Weather";
+import { WeatherProvider } from "@/components/ui/components/weather/weather-list/Weather";
 import { StyleSheet } from "react-native";
 
 const WeatherScreen = () => {
