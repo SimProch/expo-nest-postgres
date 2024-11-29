@@ -23,6 +23,7 @@ const Colors = {
     border: "#11181C",
     error: errorColor,
     hint: "#11181C",
+    disabled: "#11181C99",
   },
 };
 

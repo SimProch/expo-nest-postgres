@@ -44,8 +44,12 @@ export const ThemedTextInput = <
   const footnoteText = error?.message ? error.message : props.footnote;
 
   return (
-    <>
-      <InputLabel label={label} required={props.rules?.required} />
+    <ThemedView style={disabled && styles.disabled}>
+      <InputLabel
+        label={label}
+        required={props.rules?.required}
+        disabled={disabled}
+      />
       <ThemedView
         style={[
           styles.inputContainer,
@@ -97,11 +101,14 @@ export const ThemedTextInput = <
           )}
         </ThemedView>
       </ThemedView>
-    </>
+    </ThemedView>
   );
 };
 
 const styles = StyleSheet.create({
+  disabled: {
+    opacity: 0.6,
+  },
   iconContainer: {
     borderRadius: spacing(1),
     marginHorizontal: spacing(1),

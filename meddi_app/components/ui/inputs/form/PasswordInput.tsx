@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
-import { isPasswordValid } from "../../access/utils/isPasswordValid";
 import { ThemedTextInput } from "../text/TextInput";
+import { isPasswordValid } from "./utils/isPasswordValid";
 
 export const PasswordInput = () => {
   const { control } = useFormContext<{ password: string }>();

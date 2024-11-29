@@ -54,7 +54,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
           signIn.mutate(params, {
             onSuccess: (data) => {
               setSession(data.access_token);
-              router.replace("/(logged-in)/user-form");
+              router.replace("/(logged-in)/(tabs)/user-details");
             },
           });
         },
@@ -62,7 +62,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
           signUp.mutate(params, {
             onSuccess: (data) => {
               setSession(data.access_token);
-              router.replace("/(logged-in)/user-form");
+              router.replace("/(logged-in)/(tabs)/user-details");
             },
           });
         },

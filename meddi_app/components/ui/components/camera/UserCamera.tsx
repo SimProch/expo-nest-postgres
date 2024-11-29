@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { IconSymbol } from "../../IconSymbol";
 
-export const CameraComponent = () => {
+export const UserCamera = () => {
   const [facing, setFacing] = useState<CameraType>("back");
   const [permission, requestPermission] = useCameraPermissions();
 

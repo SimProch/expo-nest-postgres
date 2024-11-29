@@ -1,11 +1,11 @@
 import { ThemedView } from "@/components/ThemedView";
-import { CameraComponent } from "@/components/ui/components/camera/camera";
+import { UserCamera } from "@/components/ui/components/camera/UserCamera";
 import { StyleSheet } from "react-native";
 
 const CameraScreen = () => {
   return (
     <ThemedView style={styles.container}>
-      <CameraComponent />;
+      <UserCamera />
     </ThemedView>
   );
 };

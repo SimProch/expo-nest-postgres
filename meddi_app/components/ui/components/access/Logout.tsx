@@ -1,6 +1,6 @@
 import { useSession } from "@/ctx/session/SessionProvider";
-import { IconSymbol } from "../IconSymbol";
 import { Pressable } from "react-native";
+import { IconSymbol } from "../../IconSymbol";
 
 export const Logout = () => {
   const sesh = useSession();

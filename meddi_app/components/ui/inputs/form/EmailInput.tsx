@@ -1,14 +1,15 @@
 import { useFormContext } from "react-hook-form";
-import { isEmailValid } from "../../access/utils/isEmailValid";
 import { ThemedTextInput } from "../text/TextInput";
+import { isEmailValid } from "./utils/isEmailValid";
 
-export const EmailInput = () => {
+export const EmailInput = ({ disabled = false }: { disabled: boolean }) => {
   const { control } = useFormContext<{ email: string }>();
 
   return (
     <ThemedTextInput
       control={control}
       label="Email"
+      disabled={disabled}
       name="email"
       rules={{
         required: "Fill in email",
