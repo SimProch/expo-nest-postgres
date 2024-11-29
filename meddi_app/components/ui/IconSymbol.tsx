@@ -12,6 +12,8 @@ const MAPPING = {
   cloud: "cloud",
   "rectangle.portrait.and.arrow.right": "logout",
   "camera.rotate": "flip-camera-android",
+  eye: "visibility",
+  "eye.fill": "visibility-off",
 } as Partial<
   Record<
     SymbolViewProps["name"],

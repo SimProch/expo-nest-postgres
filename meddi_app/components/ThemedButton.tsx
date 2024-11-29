@@ -1,7 +1,7 @@
 import { GestureResponderEvent, Pressable } from "react-native";
 import { useColors } from "@/hooks/useColors";
-import { Text } from "react-native";
 import { StyleSheet } from "react-native";
+import { ThemedText } from "./ThemedText";
 
 export type ThemedButtonProps = {
   onPress: (event: GestureResponderEvent) => void;
@@ -19,7 +19,7 @@ export function ThemedButton({ onPress, title }: ThemedButtonProps) {
         styles.buttonWrapper,
       ]}
     >
-      <Text style={{ color: colors.button.text }}>{title}</Text>
+      <ThemedText type="button">{title}</ThemedText>
     </Pressable>
   );
 }

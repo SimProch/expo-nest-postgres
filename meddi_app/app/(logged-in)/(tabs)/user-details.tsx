@@ -1,12 +1,11 @@
-import { ThemedView } from "@/components/ThemedView";
 import { UserDetailsProvider } from "@/components/ui/components/user/user-details/UserDetailsProvider";
-import { StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 
 const UserDetailsScreen = () => {
   return (
-    <ThemedView style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <UserDetailsProvider />
-    </ThemedView>
+    </SafeAreaView>
   );
 };
 

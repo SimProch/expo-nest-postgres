@@ -12,7 +12,8 @@ export type ThemedTextProps = TextProps & {
     | "subtitle"
     | "link"
     | "error"
-    | "disabled";
+    | "disabled"
+    | "button";
 };
 
 export function ThemedText({
@@ -28,13 +29,16 @@ export function ThemedText({
     <Text
       style={[
         { color: colors.text },
-        type === "default" ? styles.default : undefined,
+        styles.default,
         type === "title" ? styles.title : undefined,
         type === "defaultSemiBold" ? styles.defaultSemiBold : undefined,
         type === "subtitle" ? styles.subtitle : undefined,
         ...(type === "link" ? [styles.link, { color: colors.link }] : []),
         type === "disabled" ? styles.disabled : undefined,
         ...(type === "error" ? [styles.error, { color: colors.error }] : []),
+        ...(type === "button"
+          ? [styles.error, { color: colors.button.text }]
+          : []),
         style,
       ]}
       {...rest}

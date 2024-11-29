@@ -11,11 +11,10 @@ import {
 import { InputLabel } from "../label/InputLabel";
 import { TextInput as NativeTextInput } from "react-native";
 import MaskInput from "react-native-mask-input";
-import { IconEye } from "@/assets/icons/IconEye";
-import { IconEyeDisable } from "@/assets/icons/IconEyeDisable";
 import { InputFootnote } from "../footnote/Footnote";
 import { ThemedView } from "@/components/ThemedView";
 import { spacing, useColors } from "@/hooks/useColors";
+import { IconSymbol } from "../../IconSymbol";
 
 export const ThemedTextInput = <
   TFieldValues extends FieldValues = FieldValues,
@@ -76,14 +75,11 @@ export const ThemedTextInput = <
           editable={disabled === undefined ? props.editable : !disabled}
         />
         {!disabled && secureTextEntry && (
-          <Pressable
-            style={styles.iconContainer}
-            onPress={() => setSecureTextEntry(!isSecureTextEntry)}
-          >
+          <Pressable onPress={() => setSecureTextEntry(!isSecureTextEntry)}>
             {isSecureTextEntry ? (
-              <IconEye color={colors.icon} />
+              <IconSymbol color={colors.icon} size={24} name="eye" />
             ) : (
-              <IconEyeDisable color={colors.icon} />
+              <IconSymbol color={colors.icon} size={24} name="eye.fill" />
             )}
           </Pressable>
         )}
@@ -109,14 +105,9 @@ const styles = StyleSheet.create({
   disabled: {
     opacity: 0.6,
   },
-  iconContainer: {
-    borderRadius: spacing(1),
-    marginHorizontal: spacing(1),
-    overflow: "hidden",
-  },
   input: {
     fontSize: spacing(4),
-    width: "100%",
+    width: "90%",
   },
   inputContainer: {
     alignItems: "center",
@@ -127,6 +118,7 @@ const styles = StyleSheet.create({
     marginBottom: spacing(1),
     marginTop: spacing(1),
     maxWidth: "100%",
+    overflow: "hidden",
     padding: spacing(2),
   },
   tailWrapper: {

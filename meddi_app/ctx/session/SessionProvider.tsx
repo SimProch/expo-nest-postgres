@@ -35,7 +35,6 @@ export function useSession() {
   }
 
   useEffect(() => {
-    console.log(value.session);
     tokenProvider.setToken(value.session ?? undefined);
   }, [value.session]);
 

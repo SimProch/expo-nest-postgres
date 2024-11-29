@@ -44,58 +44,60 @@ const UserForm = ({
   });
 
   return (
-    <>
-      <ThemedView style={styles.container}>
-        <ThemedView style={styles.form}>
-          <FormProvider {...form}>
-            <EmailInput disabled />
-            <PhoneInput />
-            <ThemedView style={styles.location}>
-              <ThemedView style={styles.city}>
-                <CityInput />
-              </ThemedView>
-              <ThemedView style={styles.postalCode}>
-                <PostalCodeInput />
-              </ThemedView>
+    <ThemedView style={styles.container}>
+      <ThemedView style={styles.form}>
+        <FormProvider {...form}>
+          <EmailInput disabled />
+          <PhoneInput />
+          <ThemedView style={styles.location}>
+            <ThemedView style={styles.city}>
+              <CityInput />
             </ThemedView>
-            <ThemedView style={styles.buttons}>
-              <ThemedView style={styles.button}>
-                <ThemedButton
-                  title="Save"
-                  onPress={async () => {
-                    form.handleSubmit(async (data: UserFormData) => {
-                      const dirtyFields = form.formState.dirtyFields;
-                      const isDirty = form.formState.isDirty;
-                      if (!isDirty) {
-                        return;
+            <ThemedView style={styles.postalCode}>
+              <PostalCodeInput />
+            </ThemedView>
+          </ThemedView>
+          <ThemedView style={styles.buttons}>
+            <ThemedView style={styles.button}>
+              <ThemedButton
+                title="Save"
+                onPress={async () => {
+                  form.handleSubmit(async (data: UserFormData) => {
+                    const dirtyFields = form.formState.dirtyFields;
+                    const isDirty = form.formState.isDirty;
+                    if (!isDirty) {
+                      return;
+                    }
+
+                    const params: Partial<UserFormData> = {};
+                    Object.keys(data).forEach((key) => {
+                      const _key = key as keyof typeof data;
+                      if (dirtyFields[_key]) {
+                        params[_key] = data[_key];
                       }
+                    });
 
-                      const params: Partial<UserFormData> = {};
-                      Object.keys(data).forEach((key) => {
-                        const _key = key as keyof typeof data;
-                        if (dirtyFields[_key]) {
-                          params[_key] = data[_key];
-                        }
-                      });
-
-                      updateMutation.mutate({ userId, params });
-                    })();
-                  }}
-                />
-              </ThemedView>
-              <ThemedView style={styles.button}>
-                <ThemedButton
-                  title="Cancel"
-                  onPress={async () => {
-                    router.navigate("/user-details");
-                  }}
-                />
-              </ThemedView>
+                    updateMutation.mutate({ userId, params });
+                  })();
+                }}
+              />
             </ThemedView>
-          </FormProvider>
-        </ThemedView>
+            <ThemedView style={styles.button}>
+              <ThemedButton
+                title="Cancel"
+                onPress={async () => {
+                  if (router.canGoBack()) {
+                    router.back();
+                    return;
+                  }
+                  router.replace("/user-details");
+                }}
+              />
+            </ThemedView>
+          </ThemedView>
+        </FormProvider>
       </ThemedView>
-    </>
+    </ThemedView>
   );
 };
 
@@ -105,7 +107,6 @@ const styles = StyleSheet.create({
   },
   buttons: {
     flexDirection: "row",
-    flex: 1,
   },
   city: {
     flex: 1,
@@ -114,7 +115,8 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     flex: 1,
-    justifyContent: "center",
+    marginTop: spacing(4),
+    // justifyContent: "center",
   },
   form: {
     width: "80%",

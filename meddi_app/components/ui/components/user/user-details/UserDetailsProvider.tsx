@@ -25,19 +25,19 @@ const UserDetails = ({ data }: { data: GetUserDataResponse }) => {
     <ThemedView style={styles.container}>
       <ThemedView style={styles.detailsContainer}>
         <ThemedView style={[styles.row, styles.detail]}>
-          <ThemedView style={styles.flex}>
+          <ThemedView>
             <ThemedText type="defaultSemiBold">Email: </ThemedText>
           </ThemedView>
-          <ThemedView style={styles.flex}>
+          <ThemedView>
             <ThemedText>{data.email}</ThemedText>
           </ThemedView>
         </ThemedView>
 
         <ThemedView style={[styles.row, styles.detail]}>
-          <ThemedView style={styles.flex}>
+          <ThemedView>
             <ThemedText type="defaultSemiBold">Phone</ThemedText>
           </ThemedView>
-          <ThemedView style={styles.flex}>
+          <ThemedView>
             <ThemedText>{data.phoneNumber}</ThemedText>
           </ThemedView>
         </ThemedView>

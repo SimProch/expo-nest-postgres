@@ -4,7 +4,6 @@ import { IconSymbol } from "@/components/ui/IconSymbol";
 import { spacing, useColors } from "@/hooks/useColors";
 import { Tabs } from "expo-router";
 import React from "react";
-import { Platform } from "react-native";
 
 export const unstable_settings = {
   initialRouteName: "user-details",
@@ -27,12 +26,6 @@ export default function TabLayout() {
               </ThemedView>
             );
           },
-          tabBarStyle: Platform.select({
-            ios: {
-              position: "absolute",
-            },
-            default: {},
-          }),
         }}
       >
         <Tabs.Screen
