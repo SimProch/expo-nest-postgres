@@ -4,6 +4,7 @@ import { IWeatherForecastProvider } from 'src/modules/weather-forecast/interface
 import { GetWeatherForecastResponseDto } from './dto/response/get-weather-forecast.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { kelvinToCelsius } from 'src/utils/kelvin-to-celsius';
+import { GetWeatherForecastDetailResponseDto } from './dto/response/get-weather-forecast-detail.dto';
 
 @ApiTags('Weather foreast')
 @Controller('weather')
@@ -20,14 +21,35 @@ export class WeatherForecastController {
   public async getForecast(
     @Param('userId', ParseUUIDPipe) userId: string
   ): Promise<GetWeatherForecastResponseDto[]> {
-    const result = await this._weatherForecastProvider.get(userId);
+    const result = await this._weatherForecastProvider.getByUser(userId);
 
     return result.map((tempInfo) => {
       return {
         city: tempInfo.city,
-        postalCode: tempInfo.postalCode,
+        postalCode: tempInfo.postcode,
         temperature: Math.round(kelvinToCelsius(tempInfo.temperature)),
       };
     });
+  }
+
+  @Get(':forecastId')
+  @ApiResponse({
+    status: 200,
+    description: 'City temperatures for the user',
+  })
+  @ApiResponse({ status: 404, description: 'Provided user does not exist' })
+  public async getForecastById(
+    @Param('forecastId', ParseUUIDPipe) forecastId: string
+  ): Promise<GetWeatherForecastDetailResponseDto> {
+    const result = await this._weatherForecastProvider.getById(forecastId);
+
+    return {
+      city: result.city,
+      postalCode: result.postcode,
+      temperature: Math.round(kelvinToCelsius(result.temperature)),
+      latitude: result.latitute,
+      longtitude: result.longtitude,
+      description: result.description,
+    };
   }
 }

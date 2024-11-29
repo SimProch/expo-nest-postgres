@@ -1,5 +1,6 @@
-import { WeatherForecast } from '../weather-forecast.service.types';
+import { WeatherForecast } from './weather-forecast.service.types';
 
 export abstract class IWeatherForecastProvider {
-  public abstract get(city: string): Promise<WeatherForecast[]>;
+  public abstract getByUser(city: string): Promise<WeatherForecast[]>;
+  public abstract getById(id: string): Promise<WeatherForecast>;
 }

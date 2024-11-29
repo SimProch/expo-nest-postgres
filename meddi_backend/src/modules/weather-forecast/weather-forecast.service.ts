@@ -4,8 +4,8 @@ import { EnvironmentService } from 'src/infrastructure/global/environment-servic
 import { ITemperatureDatabaseProvider } from 'src/data-access/temperature/interfaces/ITemperatureDatabaseProvider';
 import { IUserDatabaseService } from 'src/data-access/users/interfaces/IUserDatabaseService';
 import { OpenWeatherMapApiResponse } from './interfaces/openweathermap.types';
-import { DBTemperature } from 'src/data-access/temperature/temperature.service.types';
-import { WeatherForecast } from './weather-forecast.service.types';
+import { DBTemperature } from 'src/data-access/temperature/interfaces/temperature.service.types';
+import { WeatherForecast } from './interfaces/weather-forecast.service.types';
 
 @Injectable({ scope: Scope.REQUEST })
 export class WeatherForecastService implements IWeatherForecastProvider {
@@ -22,14 +22,18 @@ export class WeatherForecastService implements IWeatherForecastProvider {
       'WEATHER_FORECAST_PROVIDER_API_KEY'
     );
   }
+  public async getById(id: string): Promise<WeatherForecast> {
+    const temperature = await this._temperatureDatabaseService.findOneById(id);
+    return this._mapForecastFromDb(temperature);
+  }
 
-  public async get(userId: string): Promise<WeatherForecast[]> {
+  public async getByUser(userId: string): Promise<WeatherForecast[]> {
     const user = await this._userDatabaseService.findOneById(userId);
 
     const promises: Promise<WeatherForecast>[] = user.locations.map(async (location) => {
       const existing = await this._getExistingForecast(location.city);
       if (existing) {
-        return existing;
+        return this._mapForecastFromDb(existing);
       }
 
       const forecast = await this._fetchForecast(location.city);
@@ -70,7 +74,7 @@ export class WeatherForecastService implements IWeatherForecastProvider {
   }
 
   private async _getExistingForecast(city: string): Promise<DBTemperature | null> {
-    return await this._temperatureDatabaseService.findOne(city);
+    return await this._temperatureDatabaseService.findOneByCity(city);
   }
 
   private async _saveForecast(forecast: Omit<WeatherForecast, 'id'>): Promise<string> {
@@ -96,6 +100,18 @@ export class WeatherForecastService implements IWeatherForecastProvider {
       description: forecast.weather[0].description,
       latitute: forecast.coord.lat,
       longtitude: forecast.coord.lon,
+    };
+  }
+
+  private _mapForecastFromDb(forecast: DBTemperature): WeatherForecast {
+    return {
+      id: forecast.id,
+      city: forecast.city,
+      postcode: forecast.postcode,
+      temperature: forecast.temperature,
+      description: forecast.description,
+      latitute: forecast.latitute,
+      longtitude: forecast.longtitude,
     };
   }
 }
