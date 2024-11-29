@@ -1,5 +1,5 @@
-import { InferSelectModel, sql } from 'drizzle-orm';
-import { pgTable, timestamp, uniqueIndex, uuid, varchar } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
+import { pgTable, timestamp, uniqueIndex, uuid, varchar, numeric } from 'drizzle-orm/pg-core';
 
 export const temperatureTable = pgTable(
   'temperature',
@@ -7,10 +7,10 @@ export const temperatureTable = pgTable(
     id: uuid().defaultRandom().primaryKey(),
     city: varchar().notNull(),
     postcode: varchar().notNull(),
-    temperature: varchar().notNull(),
+    temperature: numeric().notNull(),
     description: varchar().notNull(),
-    latitute: varchar().notNull(),
-    longtitude: varchar().notNull(),
+    latitute: numeric().notNull(),
+    longtitude: numeric().notNull(),
     created_at: timestamp().defaultNow(),
     updated_at: timestamp()
       .defaultNow()
@@ -24,5 +24,3 @@ export const temperatureTable = pgTable(
     ];
   }
 );
-
-export type DBTemperature = InferSelectModel<typeof temperatureTable>;

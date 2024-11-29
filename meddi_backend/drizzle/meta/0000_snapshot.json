@@ -1,5 +1,5 @@
 {
-  "id": "643606ec-59d2-446e-9053-9a85558fd805",
+  "id": "a84af38a-b8fa-474f-ba39-ac99dd2870de",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -103,7 +103,7 @@
         },
         "temperature": {
           "name": "temperature",
-          "type": "varchar",
+          "type": "numeric",
           "primaryKey": false,
           "notNull": true
         },
@@ -115,13 +115,13 @@
         },
         "latitute": {
           "name": "latitute",
-          "type": "varchar",
+          "type": "numeric",
           "primaryKey": false,
           "notNull": true
         },
         "longtitude": {
           "name": "longtitude",
-          "type": "varchar",
+          "type": "numeric",
           "primaryKey": false,
           "notNull": true
         },

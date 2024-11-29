@@ -1,8 +1,8 @@
 import { Injectable, Scope } from '@nestjs/common';
 import { AbstractDrizzleService } from '../drizzle/abstract-drizzle.service';
-import { DBTemperature, temperatureTable } from 'db/schema/temperature';
-import { InferInsertModel } from 'drizzle-orm';
+import { temperatureTable } from 'db/schema/temperature';
 import { ITemperatureDatabaseProvider } from './interfaces/ITemperatureDatabaseProvider';
+import { DBTemperature, DBTemperatureCreate } from './temperature.service.types';
 
 @Injectable({ scope: Scope.DEFAULT })
 export class TemperatureDatabaseService
@@ -14,21 +14,33 @@ export class TemperatureDatabaseService
       where: (temperature, { eq }) => eq(temperature.city, city),
     });
 
-    return temperature;
+    if (!temperature) {
+      return null;
+    }
+
+    return {
+      id: temperature.id,
+      city: temperature.city,
+      postcode: temperature.postcode,
+      temperature: +temperature.temperature,
+      description: temperature.description,
+      latitute: +temperature.latitute,
+      longtitude: +temperature.longtitude,
+      created_at: temperature.created_at,
+      updated_at: temperature.updated_at,
+    };
   }
 
-  public async createOne(
-    temp: Partial<InferInsertModel<typeof temperatureTable>>,
-  ): Promise<string> {
+  public async createOne(temp: DBTemperatureCreate): Promise<string> {
     const result = await this._db
       .insert(temperatureTable)
       .values({
         city: temp.city,
         postcode: temp.postcode,
-        temperature: temp.temperature,
+        temperature: temp.temperature.toString(),
         description: temp.description,
-        latitute: temp.latitute,
-        longtitude: temp.longtitude,
+        latitute: temp.latitute.toString(),
+        longtitude: temp.longtitude.toString(),
       })
       .returning({ id: temperatureTable.id });
 
