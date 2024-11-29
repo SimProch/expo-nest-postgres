@@ -1,11 +1,11 @@
-import { SignInPayload } from "@/ctx/session/auth.types";
+import { SignInParams } from "@/ctx/session/auth.types";
 import { accessApiService } from "@/services";
 import { useMutation } from "@tanstack/react-query";
 
 export const useSignIn = () => {
   return useMutation({
-    mutationFn: async (params: SignInPayload) => {
-      await accessApiService.signIn(params);
+    mutationFn: async (params: SignInParams) => {
+      return await accessApiService.signIn(params);
     },
   });
 };

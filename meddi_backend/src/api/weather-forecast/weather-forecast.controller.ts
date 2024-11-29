@@ -8,9 +8,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 @Controller('forecast')
 @UseGuards(AuthGuard)
 export class WeatherForecastController {
-  constructor(
-    private readonly _weatherForecastProvider: IWeatherForecastProvider,
-  ) {}
+  constructor(private readonly _weatherForecastProvider: IWeatherForecastProvider) {}
 
   @Get(':city')
   @ApiResponse({
@@ -18,9 +16,7 @@ export class WeatherForecastController {
     description: 'Temperature for the city was found',
   })
   @ApiResponse({ status: 404, description: 'Provided city does not exist' })
-  public async getHello(
-    @Param('city') city: string,
-  ): Promise<GetWeatherForecastResponseDto> {
+  public async getHello(@Param('city') city: string): Promise<GetWeatherForecastResponseDto> {
     return await this._weatherForecastProvider.get(city);
   }
 }

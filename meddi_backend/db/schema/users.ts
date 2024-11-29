@@ -1,14 +1,9 @@
-import { InferSelectModel, sql } from 'drizzle-orm';
-import {
-  pgTable,
-  timestamp,
-  uniqueIndex,
-  uuid,
-  varchar,
-} from 'drizzle-orm/pg-core';
+import { InferSelectModel, relations, sql } from 'drizzle-orm';
+import { pgTable, timestamp, uniqueIndex, uuid, varchar } from 'drizzle-orm/pg-core';
+import { locationsTable } from './locations';
 
 export const usersTable = pgTable(
-  'users',
+  'user',
   {
     id: uuid().defaultRandom().primaryKey(),
     email: varchar().unique().notNull(),
@@ -25,7 +20,9 @@ export const usersTable = pgTable(
         email_idx: uniqueIndex('email_idx').on(table.email),
       },
     ];
-  },
+  }
 );
 
-export type DBUser = InferSelectModel<typeof usersTable>;
+export const userRelations = relations(usersTable, ({ many }) => ({
+  posts: many(locationsTable),
+}));

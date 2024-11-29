@@ -1,5 +1,7 @@
+import { ThemedText } from "@/components/ThemedText";
+
 const WeatherScreen = () => {
-  return <>Weather</>;
+  return <ThemedText>Weather</ThemedText>;
 };
 
 export default WeatherScreen;

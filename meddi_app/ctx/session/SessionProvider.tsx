@@ -1,8 +1,15 @@
-import { useContext, createContext, type PropsWithChildren } from "react";
+import {
+  useContext,
+  createContext,
+  type PropsWithChildren,
+  useEffect,
+} from "react";
 import { useStorageState } from "./useStorageState";
 import { Session } from "./auth.types";
-import { useSignIn } from "@/hooks/access/useSignIn";
-import { useSignUp } from "@/hooks/access/useSignUp";
+import { useSignIn } from "@/hooks/api/access/useSignIn";
+import { useSignUp } from "@/hooks/api/access/useSignUp";
+import { router } from "expo-router";
+import { tokenProvider } from "@/services/token-provider";
 
 const AuthContext = createContext<Session>({
   signIn: () => {
@@ -27,6 +34,11 @@ export function useSession() {
     }
   }
 
+  useEffect(() => {
+    console.log(value.session);
+    tokenProvider.setToken(value.session ?? undefined);
+  }, [value.session]);
+
   return value;
 }
 
@@ -41,18 +53,21 @@ export function SessionProvider({ children }: PropsWithChildren) {
         signIn: async (params) => {
           signIn.mutate(params, {
             onSuccess: (data) => {
-              console.log(data);
+              setSession(data.access_token);
+              router.replace("/(logged-in)/user-form");
             },
           });
         },
         signUp: async (params) => {
           signUp.mutate(params, {
             onSuccess: (data) => {
-              console.log(data);
+              setSession(data.access_token);
+              router.replace("/(logged-in)/user-form");
             },
           });
         },
         signOut: async () => {
+          router.replace("/");
           setSession(null);
         },
         session,

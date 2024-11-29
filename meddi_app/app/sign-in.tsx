@@ -5,8 +5,8 @@ import { ThemedView } from "@/components/ThemedView";
 import { ThemedButton } from "@/components/ThemedButton";
 import { useSession } from "@/ctx/session/SessionProvider";
 import { FormProvider, useForm } from "react-hook-form";
-import { EmailInput } from "@/components/ui/access/EmailInput";
-import { PasswordInput } from "@/components/ui/access/PasswordInput";
+import { EmailInput } from "@/components/ui/inputs/form/EmailInput";
+import { PasswordInput } from "@/components/ui/inputs/form/PasswordInput";
 
 type FormData = {
   email: string;
@@ -33,7 +33,6 @@ export default function SignInScreen() {
               title="Sign in"
               onPress={async () => {
                 form.handleSubmit(async (data: FormData) => {
-                  console.log(data);
                   await session.signIn({
                     email: data.email,
                     password: data.password,

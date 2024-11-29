@@ -1,7 +1,7 @@
 import { Injectable, Scope } from '@nestjs/common';
 import { Token, UserLogin, UserRegistration } from './access.service.types';
 import * as crypto from 'argon2';
-import { IUserDatabaseService } from 'src/data-access/users/interfaces/IUserService';
+import { IUserDatabaseService } from 'src/data-access/users/interfaces/IUserDatabaseService';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable({ scope: Scope.REQUEST })
@@ -12,7 +12,7 @@ export class AccessService {
   ) {}
 
   public async registerNewUser(props: UserRegistration): Promise<Token> {
-    const existingUser = await this._userDatabaseService.findOne(props.email);
+    const existingUser = await this._userDatabaseService.findOneByEmail(props.email);
     if (existingUser) {
       throw new Error('There was an error registering the user');
     }
@@ -22,13 +22,15 @@ export class AccessService {
       email: props.email,
       password_hash: hashedPassword,
       phone_number: props.phoneNumber,
+      postal_code: props.postalCode,
+      city: props.city,
     });
 
     return this._generateAccessToken(id, props.email);
   }
 
   public async login(props: UserLogin): Promise<Token> {
-    const existingUser = await this._userDatabaseService.findOne(props.email);
+    const existingUser = await this._userDatabaseService.findOneByEmail(props.email);
     if (!existingUser) {
       throw new Error('There was an error with login');
     }

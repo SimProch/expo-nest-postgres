@@ -3,14 +3,14 @@ import { StyleSheet } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedButton } from "@/components/ThemedButton";
-import { EmailInput } from "@/components/ui/access/EmailInput";
-import { PasswordInput } from "@/components/ui/access/PasswordInput";
 import { useForm, FormProvider } from "react-hook-form";
-import { PhoneInput } from "@/components/ui/access/PhoneInput";
-import { CityInput } from "@/components/ui/access/CityInput";
-import { PostalCodeInput } from "@/components/ui/access/PostalCodeInput";
 import { spacing } from "@/hooks/useColors";
 import { useSession } from "@/ctx/session/SessionProvider";
+import { CityInput } from "@/components/ui/inputs/form/CityInput";
+import { EmailInput } from "@/components/ui/inputs/form/EmailInput";
+import { PasswordInput } from "@/components/ui/inputs/form/PasswordInput";
+import { PhoneInput } from "@/components/ui/inputs/form/PhoneInput";
+import { PostalCodeInput } from "@/components/ui/inputs/form/PostalCodeInput";
 
 type FormData = {
   email: string;

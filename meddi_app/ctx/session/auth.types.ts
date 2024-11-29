@@ -1,9 +1,9 @@
-export type SignInPayload = {
+export type SignInParams = {
   email: string;
   password: string;
 };
 
-export type SignUpPayload = {
+export type SignUpParams = {
   email: string;
   password: string;
   phoneNumber: string;
@@ -12,8 +12,8 @@ export type SignUpPayload = {
 };
 
 export type Session = {
-  signIn: (params: SignInPayload) => Promise<void>;
-  signUp: (params: SignUpPayload) => Promise<void>;
+  signIn: (params: SignInParams) => Promise<void>;
+  signUp: (params: SignUpParams) => Promise<void>;
   signOut: () => Promise<void>;
   session?: string | null;
   isLoading: boolean;

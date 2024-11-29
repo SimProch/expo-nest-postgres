@@ -22,6 +22,8 @@ export class AccessController {
       email: dto.email,
       password: dto.password,
       phoneNumber: dto.phoneNumber,
+      city: dto.city,
+      postalCode: dto.postalCode,
     });
 
     return {

@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1732447740698,
-      "tag": "0000_mature_wallop",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1732448937017,
-      "tag": "0001_broad_darwin",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1732704627963,
-      "tag": "0002_regular_wonder_man",
+      "when": 1732881933674,
+      "tag": "0000_polite_shape",
       "breakpoints": true
     }
   ]

@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
-import { ThemedTextInput } from "../inputs/text/TextInput";
-import { isCityValid } from "./utils/isCityValid";
+import { isCityValid } from "../../access/utils/isCityValid";
+import { ThemedTextInput } from "../text/TextInput";
 
 export const CityInput = () => {
   const { control } = useFormContext<{ city: string }>();

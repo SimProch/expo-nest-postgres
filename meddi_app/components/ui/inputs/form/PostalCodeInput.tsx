@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { ThemedTextInput } from "../inputs/text/TextInput";
+import { ThemedTextInput } from "../text/TextInput";
 
 export const PostalCodeInput = () => {
   const { control } = useFormContext<{ postalCode: string }>();

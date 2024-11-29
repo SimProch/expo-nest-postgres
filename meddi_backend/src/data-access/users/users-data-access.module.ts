@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { UserDatabaseService } from './user.service';
-import { IUserDatabaseService } from './interfaces/IUserService';
+import { UserDatabaseService } from './user-database.service';
+import { IUserDatabaseService } from './interfaces/IUserDatabaseService';
 
 @Module({
   providers: [

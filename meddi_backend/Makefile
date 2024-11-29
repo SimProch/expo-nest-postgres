@@ -3,7 +3,7 @@ APPLICATION_NAME=meddi-app
 down:
 	docker compose down
 build:
-	docker build --tag ${APPLICATION_NAME}:latest .
+	docker build --no-cache --tag ${APPLICATION_NAME}:latest .
 run:
 	docker compose up -d
 run-db:

@@ -1,11 +1,5 @@
 import { InferSelectModel, sql } from 'drizzle-orm';
-import {
-  pgTable,
-  timestamp,
-  uniqueIndex,
-  uuid,
-  varchar,
-} from 'drizzle-orm/pg-core';
+import { pgTable, timestamp, uniqueIndex, uuid, varchar } from 'drizzle-orm/pg-core';
 
 export const temperatureTable = pgTable(
   'temperature',
@@ -28,7 +22,7 @@ export const temperatureTable = pgTable(
         city_idx: uniqueIndex('email_idx').on(table.city),
       },
     ];
-  },
+  }
 );
 
 export type DBTemperature = InferSelectModel<typeof temperatureTable>;

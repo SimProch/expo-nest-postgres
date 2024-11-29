@@ -1,5 +1,7 @@
+import { UserFormProvider } from "@/components/ui/components/user/user-form";
+
 const UserFormScreen = () => {
-  return <>User Form</>;
+  return <UserFormProvider />;
 };
 
 export default UserFormScreen;

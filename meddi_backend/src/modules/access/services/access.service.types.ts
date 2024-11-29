@@ -2,6 +2,8 @@ export type UserRegistration = {
   email: string;
   password: string;
   phoneNumber: string;
+  postalCode: string;
+  city: string;
 };
 
 export type UserLogin = {

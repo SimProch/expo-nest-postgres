@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
-import { ThemedTextInput } from "../inputs/text/TextInput";
-import { isEmailValid } from "./utils/isEmailValid";
+import { isEmailValid } from "../../access/utils/isEmailValid";
+import { ThemedTextInput } from "../text/TextInput";
 
 export const EmailInput = () => {
   const { control } = useFormContext<{ email: string }>();

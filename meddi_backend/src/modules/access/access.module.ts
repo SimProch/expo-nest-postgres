@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { IUserDatabaseService } from 'src/data-access/users/interfaces/IUserService';
-import { UserDatabaseService } from 'src/data-access/users/user.service';
+import { IUserDatabaseService } from 'src/data-access/users/interfaces/IUserDatabaseService';
+import { UserDatabaseService } from 'src/data-access/users/user-database.service';
 import { AccessService } from './services/access.service';
 import { DataAccessModule } from 'src/data-access/data-access.module';
 @Module({
@@ -11,7 +11,7 @@ import { DataAccessModule } from 'src/data-access/data-access.module';
       global: true,
       secret: process.env.JWT_SECRET,
       signOptions: {
-        expiresIn: '60s',
+        expiresIn: '120d',
       },
     }),
   ],
