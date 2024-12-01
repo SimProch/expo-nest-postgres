@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import { ThemedTextInput } from "../text/TextInput";
 
-export const PhoneInput = () => {
+export const PhoneInput = ({ disabled = false }: { disabled?: boolean }) => {
   const { control } = useFormContext<{ phoneNumber: string }>();
 
   return (
@@ -28,6 +28,7 @@ export const PhoneInput = () => {
         /\d/,
         /\d/,
       ]}
+      disabled={disabled}
     ></ThemedTextInput>
   );
 };

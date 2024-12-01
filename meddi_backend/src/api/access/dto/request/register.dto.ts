@@ -1,5 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsPhoneNumber, IsPostalCode, IsString, IsStrongPassword } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsArray,
+  IsEmail,
+  IsPhoneNumber,
+  IsPostalCode,
+  IsString,
+  IsStrongPassword,
+  ValidateNested,
+} from 'class-validator';
 
 export class RegisterRequestDto {
   @IsEmail()
@@ -29,6 +38,13 @@ export class RegisterRequestDto {
   @IsPhoneNumber()
   public phoneNumber: string;
 
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => City)
+  public cities: City[];
+}
+
+class City {
   @ApiProperty({
     name: 'postalCode',
     example: '60200',

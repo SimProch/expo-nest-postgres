@@ -2,11 +2,12 @@ import { useUserId } from "@/hooks/utils/useUserId";
 import { useGetUserWeather } from "../hooks/useGetUserWeather";
 import { RenderUnsettledUI } from "../../utils/RenderUnsettledUI";
 import { ThemedView } from "@/components/ThemedView";
-import { StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { spacing } from "@/hooks/useColors";
 import { useMemo } from "react";
 import { GetUserWeatherResponse } from "@/services/weather/weather.api.service.types";
+import { router } from "expo-router";
 
 export const WeatherProvider = () => {
   const id = useUserId();
@@ -37,13 +38,20 @@ const Weather = ({ data }: { data: GetUserWeatherResponse }) => {
           <ThemedView key={index} style={styles.weatherChunk}>
             {chunk.map((datum) => {
               return (
-                <ThemedView
-                  key={datum.city + Math.random()}
-                  style={styles.weather}
+                <Pressable
+                  key={datum.id}
+                  onPress={() => {
+                    router.push({
+                      pathname: "/(logged-in)/city-detail",
+                      params: { id: datum.id },
+                    });
+                  }}
                 >
-                  <ThemedText>{datum.city}</ThemedText>
-                  <ThemedText>{datum.temperature} °C</ThemedText>
-                </ThemedView>
+                  <ThemedView style={styles.weather}>
+                    <ThemedText>{datum.city}</ThemedText>
+                    <ThemedText>{datum.temperature} °C</ThemedText>
+                  </ThemedView>
+                </Pressable>
               );
             })}
           </ThemedView>

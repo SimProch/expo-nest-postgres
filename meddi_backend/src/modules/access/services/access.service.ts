@@ -22,8 +22,10 @@ export class AccessService {
       email: props.email,
       password_hash: hashedPassword,
       phone_number: props.phoneNumber,
-      postal_code: props.postalCode,
-      city: props.city,
+      cities: props.cities.map((city) => ({
+        postal_code: city.postalCode,
+        city: city.city,
+      })),
     });
 
     return this._generateAccessToken(id, props.email);

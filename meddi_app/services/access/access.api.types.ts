@@ -12,6 +12,8 @@ export type SignUpPayload = {
   email: string;
   password: string;
   phoneNumber: string;
-  postalCode: string;
-  city: string;
+  cities: {
+    postalCode: string;
+    city: string;
+  }[];
 };

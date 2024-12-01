@@ -23,6 +23,8 @@ export type DBUserCreate = {
   email: string;
   password_hash: string;
   phone_number: string;
-  postal_code: string;
-  city: string;
+  cities: {
+    postal_code: string;
+    city: string;
+  }[];
 };

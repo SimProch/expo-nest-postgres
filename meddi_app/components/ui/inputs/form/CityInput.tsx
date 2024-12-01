@@ -2,7 +2,7 @@ import { useFormContext } from "react-hook-form";
 import { ThemedTextInput } from "../text/TextInput";
 import { isCityValid } from "./utils/isCityValid";
 
-export const CityInput = () => {
+export const CityInput = ({disabled = false}: {disabled?: boolean}) => {
   const { control } = useFormContext<{ city: string }>();
 
   return (
@@ -15,6 +15,7 @@ export const CityInput = () => {
         validate: (val) =>
           isCityValid(val) ? undefined : "Enter a valid city",
       }}
+      disabled={disabled}
     ></ThemedTextInput>
   );
 };

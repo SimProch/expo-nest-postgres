@@ -25,6 +25,7 @@ export class WeatherForecastController {
 
     return result.map((tempInfo) => {
       return {
+        id: tempInfo.id,
         city: tempInfo.city,
         postalCode: tempInfo.postcode,
         temperature: Math.round(kelvinToCelsius(tempInfo.temperature)),
@@ -32,16 +33,16 @@ export class WeatherForecastController {
     });
   }
 
-  @Get(':forecastId')
+  @Get('/city/:cityId')
   @ApiResponse({
     status: 200,
-    description: 'City temperatures for the user',
+    description: 'City detail',
   })
   @ApiResponse({ status: 404, description: 'Provided user does not exist' })
   public async getForecastById(
-    @Param('forecastId', ParseUUIDPipe) forecastId: string
+    @Param('cityId', ParseUUIDPipe) cityId: string
   ): Promise<GetWeatherForecastDetailResponseDto> {
-    const result = await this._weatherForecastProvider.getById(forecastId);
+    const result = await this._weatherForecastProvider.getById(cityId);
 
     return {
       city: result.city,

@@ -2,8 +2,7 @@ export type UserRegistration = {
   email: string;
   password: string;
   phoneNumber: string;
-  postalCode: string;
-  city: string;
+  cities: City[];
 };
 
 export type UserLogin = {
@@ -13,4 +12,9 @@ export type UserLogin = {
 
 export type Token = {
   access_token: string;
+};
+
+type City = {
+  city: string;
+  postalCode: string;
 };

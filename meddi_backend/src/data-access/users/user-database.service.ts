@@ -88,11 +88,13 @@ export class UserDatabaseService extends AbstractDrizzleService implements IUser
       })
       .returning({ id: usersTable.id });
 
-    await this._db.insert(locationsTable).values({
-      city: user.city,
-      postal_code: user.postal_code,
-      user_id: result[0].id,
-    });
+    await this._db.insert(locationsTable).values(
+      user.cities.map((city) => ({
+        city: city.city,
+        postal_code: city.postal_code,
+        user_id: result[0].id,
+      }))
+    );
 
     return result[0].id;
   }

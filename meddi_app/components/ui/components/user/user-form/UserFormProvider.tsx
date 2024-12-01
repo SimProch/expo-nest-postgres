@@ -51,10 +51,10 @@ const UserForm = ({
           <PhoneInput />
           <ThemedView style={styles.location}>
             <ThemedView style={styles.city}>
-              <CityInput />
+              <CityInput disabled />
             </ThemedView>
             <ThemedView style={styles.postalCode}>
-              <PostalCodeInput />
+              <PostalCodeInput disabled />
             </ThemedView>
           </ThemedView>
           <ThemedView style={styles.buttons}>
