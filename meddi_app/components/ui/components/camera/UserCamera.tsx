@@ -1,10 +1,9 @@
 import { ThemedView } from "@/components/ThemedView";
 import { spacing } from "@/hooks/useColors";
 import { CameraView, CameraType, useCameraPermissions } from "expo-camera";
-import React, { useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { IconSymbol } from "../../IconSymbol";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 export const UserCamera = () => {
   const [facing, setFacing] = useState<CameraType>("back");
@@ -25,26 +24,30 @@ export const UserCamera = () => {
     );
   }
 
-  const gestureHandler = Gesture.Tap()
-    .numberOfTaps(2)
-    .onStart(() => {
-      setFacing((current) => (current === "back" ? "front" : "back"));
-    });
+  function toggleCameraFacing() {
+    setFacing((current) => (current === "back" ? "front" : "back"));
+  }
 
   return (
     <ThemedView style={styles.container}>
-      <GestureDetector gesture={gestureHandler}>
-        <CameraView style={styles.camera} facing={facing}>
-          <ThemedView style={styles.buttonContainer}>
+      <CameraView style={styles.camera} facing={facing}>
+        <ThemedView style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
             <IconSymbol size={24} name="camera.rotate" color="black" />
-          </ThemedView>
-        </CameraView>
-      </GestureDetector>
+          </TouchableOpacity>
+        </ThemedView>
+      </CameraView>
     </ThemedView>
   );
 };
 
 const styles = StyleSheet.create({
+  // eslint-disable-next-line react-native/no-color-literals
+  button: {
+    alignItems: "center",
+    alignSelf: "flex-end",
+    flexDirection: "column",
+  },
   // eslint-disable-next-line react-native/no-color-literals
   buttonContainer: {
     backgroundColor: "transparent",

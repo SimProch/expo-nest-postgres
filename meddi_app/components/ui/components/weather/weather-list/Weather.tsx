@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
     width: "80%",
   },
   weather: {
-    flex: 1,
     padding: spacing(4),
   },
   weatherChunk: {

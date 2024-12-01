@@ -1,3 +1,4 @@
+import "expo-dev-client";
 import { Slot } from "expo-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "@/ctx/session/SessionProvider";
