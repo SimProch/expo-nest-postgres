@@ -16,15 +16,15 @@
 Make sure the docker is running, then open CLI and run the following:
 
 ```sh
-make all
+make all-db
+nest start -w
 ```
 
 The command will
   - create a postgres DB in docker on port 5432
   - generate the DB migrations
   - push the DB structure
-  - create a docker container with backend on port 3000
-  - run both services in detached mode
+  - run in detached mode
 
 Inspect the docker processes are running
 
@@ -32,9 +32,7 @@ Inspect the docker processes are running
 docker ps
 ```
 
-You should see 2 containers
-  - `nest-docker-postgres` as the backend container
-  - `postgres` as the DB container
+You should see a container `postgres` as the DB container. You can connect to this using `postgres://root:root@0.0.0.0:5432/meddi` as the environment variable
 
 ## Using swagger
 
