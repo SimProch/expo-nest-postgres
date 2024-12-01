@@ -16,7 +16,7 @@ export const PasswordInput = () => {
         validate: (val) =>
           isPasswordValid(val)
             ? undefined
-            : "Enter a password that 8 letters and at least 1 lowercase character, one uppercase character and one number",
+            : "Fill in 8 letter password containing \nlowercase, uppercase and number",
       }}
     ></ThemedTextInput>
   );

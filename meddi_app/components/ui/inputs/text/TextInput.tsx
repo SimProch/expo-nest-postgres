@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   tailWrapper: {
     display: "flex",
     flexDirection: "row",
-    height: spacing(6),
+    height: spacing(12),
     justifyContent: "space-between",
     marginHorizontal: spacing(1),
   },
