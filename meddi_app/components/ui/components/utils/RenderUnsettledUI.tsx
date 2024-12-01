@@ -5,12 +5,12 @@ const RenderUnsettledUI = <T,>({
   data: { status, error, refetch },
 }: RenderUnsettledUIProps<T>) => {
   if (status === "pending") {
-    return <ThemedText>"Loading...";</ThemedText>;
+    return <ThemedText>"Loading..."</ThemedText>;
   }
 
   if (status === "error") {
     console.error(error);
-    return <ThemedText>"Error!";</ThemedText>;
+    return <ThemedText>"Error!"</ThemedText>;
   }
 
   return null;
